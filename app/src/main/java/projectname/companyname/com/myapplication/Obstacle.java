@@ -39,7 +39,7 @@ public class Obstacle implements EntityBase, Collidable {
     }
 
     @Override
-    public boolean isDone() {
+    public boolean IsDone() {
         return false;
     }
 
@@ -63,6 +63,16 @@ public class Obstacle implements EntityBase, Collidable {
         Random ranGen = new Random();
 
         _canvas.drawBitmap(bmp, ranGen.nextInt(), ranGen.nextInt(), null);
+    }
+
+    @Override
+    public int GetRenderLayer() {
+        return RenderLayer.Instance.GroundLayerFront;
+    }
+
+    @Override
+    public void SetRenderLayer(int _renderLayer) {
+
     }
 
     @Override

@@ -30,6 +30,7 @@ public class Player implements EntityBase, Collidable {
     private float defaultJumpSpeed = -750;
     private float jumpSpeed = -750;
     private float gravity = 1000;
+    private float renderLayer = RenderLayer.Instance.PlayerLayer;
 
 
     //private float xPos, yPos, xDir, yDir;
@@ -51,6 +52,10 @@ public class Player implements EntityBase, Collidable {
         return pos.y;
     }
 
+    public Vector3 GetPos() {
+        return pos;
+    }
+
     @Override
     public float GetRadius() {
         return 0;
@@ -67,7 +72,7 @@ public class Player implements EntityBase, Collidable {
     }
 
     @Override
-    public boolean isDone() {
+    public boolean IsDone() {
         return isDone;
     }
 
@@ -95,24 +100,28 @@ public class Player implements EntityBase, Collidable {
     public void Update(float _dt) {
        //pos.x += dir.x * _dt;
 
-       switch (TouchManager.Instance.IsSwipe())
-       {
-           case 0:
-           dir.x = -350f;
-           TouchManager.Instance.ResetState();
-           break;
+        if (TouchManager.Instance.IsUp()) {
+            switch (TouchManager.Instance.IsSwipe())
+            {
+                case 0:
+                    dir.x = -350f;
+                    Log.d("Player", "left");
+                    TouchManager.Instance.ResetState();
+                    break;
 
-           case 1:
-           dir.x = 350f;
-           TouchManager.Instance.ResetState();
-           break;
+                case 1:
+                    dir.x = 350f;
+                    Log.d("Player", "right");
+                    TouchManager.Instance.ResetState();
+                    break;
 
-           case 2:
-           SetJump(true);
-           Log.d("hi", "hi");
-           TouchManager.Instance.ResetState();
-           break;
-       }
+                case 2:
+                    SetJump(true);
+                    Log.d("Player", "jump");
+                    TouchManager.Instance.ResetState();
+                    break;
+            }
+        }
 
         UpdateJump(_dt);
 
@@ -128,6 +137,16 @@ public class Player implements EntityBase, Collidable {
         //_canvas.drawBitmap(bmp, transform, null);
 
         Character.Render(_canvas, (int)pos.x, (int)pos.y);
+    }
+
+    @Override
+    public int GetRenderLayer() {
+        return RenderLayer.Instance.PlayerLayer;
+    }
+
+    @Override
+    public void SetRenderLayer(int _renderLayer) {
+
     }
 
     @Override

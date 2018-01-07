@@ -36,11 +36,13 @@ public class TouchManager {
         return status == TouchState.MOVE;
     }
 
+    public boolean IsUp() {return status == TouchState.UP; }
+
     public int IsSwipe() {
         if (Math.abs(oldPos.y - newPos.y) > Math.abs(oldPos.x - newPos.x))
         {
             // swipe up
-            if (oldPos.y < newPos.y)
+            if (oldPos.y > newPos.y)
                 return 2;
 
             //swipe down

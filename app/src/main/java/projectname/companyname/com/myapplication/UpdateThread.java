@@ -17,13 +17,12 @@ public class UpdateThread extends Thread
         view = _view;
         holder = _view.getHolder();
 
-        SampleGame.Instance.Init(_view);
+        GameSystem.Instance.Init(view);
     }
 
     public boolean IsRunning()
     {
         // to make sure of stuff here
-
         return isRunning;
     }
 
@@ -56,11 +55,11 @@ public class UpdateThread extends Thread
         {
             // Update
             long currTime = System.nanoTime();
-            float deltaTime = (float)((currTime - prevTime) / 1000000000.0f);
+            float deltaTime = (currTime - prevTime) / 1000000000.0f;
             prevTime = currTime;
             //end deltatime
 
-            SampleGame.Instance.Update(deltaTime);
+            GameSystem.Instance.Update(deltaTime);
 
             // Render
             Canvas canvas = holder.lockCanvas();
@@ -70,8 +69,7 @@ public class UpdateThread extends Thread
                 {
                     // start doing stuff here
                     canvas.drawColor(Color.BLACK);
-
-                    SampleGame.Instance.Render(canvas);
+                    GameSystem.Instance.Render(canvas);
                 }
                 holder.unlockCanvasAndPost(canvas);
             }

@@ -20,10 +20,9 @@ public class SampleBackground implements EntityBase
     private int screenWidth, screenHeight;
 
     @Override
-    public boolean isDone() {
+    public boolean IsDone() {
         return isDone;
     }
-
 
     @Override
     public void SetIsDone(boolean _isDone) {
@@ -65,6 +64,16 @@ public class SampleBackground implements EntityBase
         transform.postTranslate(0, view.getHeight());
         _canvas.drawBitmap(scaledbmp, transform, null);
         //_canvas.drawBitmap(bmp, 0, view.getHeight() + yOffset, null);
+    }
+
+    @Override
+    public int GetRenderLayer() {
+        return RenderLayer.Instance.BGLayer;
+    }
+
+    @Override
+    public void SetRenderLayer(int _renderLayer) {
+
     }
 
     @Override

@@ -2,6 +2,9 @@ package projectname.companyname.com.myapplication;
 
 import android.graphics.Canvas;
 import android.view.SurfaceView;
+
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class EntityManager {
@@ -9,8 +12,7 @@ public class EntityManager {
     private LinkedList<EntityBase> entityList = new LinkedList<EntityBase>();
     private SurfaceView view  = null;
 
-    private EntityManager()
-    {
+    private EntityManager()  {
 
     }
 
@@ -28,7 +30,7 @@ public class EntityManager {
 
             currEntity.Update(_dt);
 
-            if (currEntity.isDone())
+            if (currEntity.IsDone())
             {
                 // if it is done, add to removal list
                 removalList.add(currEntity);
@@ -60,7 +62,7 @@ public class EntityManager {
                 }
             }
 
-            if (currEntity.isDone())
+            if (currEntity.IsDone())
             {
                 removalList.add(currEntity);
             }
@@ -74,6 +76,13 @@ public class EntityManager {
     }
 
     public void Render(Canvas _canvas) {
+        // sort the entities by render layer
+        Collections.sort(entityList, new Comparator<EntityBase>() {
+            @Override
+            public int compare(EntityBase o1, EntityBase o2) {
+                return Integer.compare(o1.GetRenderLayer(), o2.GetRenderLayer());
+            }
+        });
         // All entities rendered here
         for (EntityBase currEntity : entityList)
         {

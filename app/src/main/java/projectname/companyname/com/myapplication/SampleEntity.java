@@ -15,7 +15,7 @@ public class SampleEntity implements EntityBase, Collidable {
     boolean isInit;
 
     @Override
-    public boolean isDone() {
+    public boolean IsDone() {
         return isDone;
     }
 
@@ -64,6 +64,16 @@ public class SampleEntity implements EntityBase, Collidable {
     @Override
     public void Render(Canvas _canvas) {
         _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null);
+    }
+
+    @Override
+    public int GetRenderLayer() {
+        return 0;
+    }
+
+    @Override
+    public void SetRenderLayer(int _renderLayer) {
+
     }
 
     public static SampleEntity Create() {
