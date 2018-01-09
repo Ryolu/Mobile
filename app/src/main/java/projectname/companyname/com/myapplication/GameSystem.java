@@ -44,6 +44,10 @@ public class GameSystem
             GameData.Instance.isStarted = true;
             startVibrate();
         }
+
+        GameData.Instance.worldTime += _deltaTime;
+
+        Log.d("Time: ", Float.toString(GameData.Instance.worldTime) + "s");
     }
 
     public void Render(Canvas _canvas)

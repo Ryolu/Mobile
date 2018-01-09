@@ -9,12 +9,12 @@ public class TextEntity implements EntityBase{
 
     private boolean isDone = false;
 
-    int frameCount;
-    long lastTime = 0;
-    long lastFPSTime = 0;
-    float fps;
+    private int frameCount;
+    private long lastTime = 0;
+    private long lastFPSTime = 0;
+    private float fps;
 
-    Typeface myfont;
+    private Typeface myfont;
 
     @Override
     public boolean IsDone() {
@@ -63,9 +63,7 @@ public class TextEntity implements EntityBase{
     }
 
     @Override
-    public void SetRenderLayer(int _renderLayer) {
-        return;
-    }
+    public void SetRenderLayer(int _renderLayer) {}
 
     @Override
     public boolean IsInit() {

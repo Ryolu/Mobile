@@ -102,8 +102,6 @@ public class MapGenerator {
                 MapList.add(land);
             }
         }
-
-        Log.v("Number of land", Integer.toString(landNumber));
     }
 
     public boolean IsInit() {
