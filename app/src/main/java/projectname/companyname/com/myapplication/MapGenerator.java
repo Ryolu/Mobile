@@ -1,14 +1,12 @@
 package projectname.companyname.com.myapplication;
 
-import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.SurfaceView;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class MapGenerator {
     public final static MapGenerator Instance = new MapGenerator();
@@ -16,8 +14,10 @@ public class MapGenerator {
     private LinkedList<Land> MapList = new LinkedList<>();
     private SurfaceView view = null;
     private boolean isInit = false;
-    private Vector3 leftoffset = new Vector3(-117, 60, 0);
-    private Vector3 rightoffset = new Vector3(117, 60, 0);
+    private int xOffset = 117;
+    private int yOffset = 60;
+    private int dir = 1;
+    private int landNumber;
 
     // RNG
     private Vector3 pos;
@@ -25,57 +25,84 @@ public class MapGenerator {
 
     private MapGenerator () { }
 
-    public void Init(SurfaceView _view) {
+    public void Init(SurfaceView _view){
         if (_view.isLaidOut())
         {
             view = _view;
+            pos = new Vector3(_view.getWidth() * 0.5f, _view.getHeight() * 0.5f, 0);
             land = Land.Create();
-            land.SetPos(pos);
+            land.SetPos(new Vector3(pos));
             MapList.add(land);
 
-            for (int i = 0; i < 14; i++)
-            {
-                pos = new Vector3(_view.getWidth() * 0.5f, _view.getHeight() * 0.5f, 0);
-                land = Land.Create();
-                if (random.nextInt(Math.abs((int)SystemClock.elapsedRealtime())) % 2 == 0 && pos.x > _view.getWidth() * 0.5f - 117 * 3)
+            do {
+                if (random.nextInt() % 7 == 0)
+                    dir *= -1;
+
+                if (random.nextInt() % 2 == 0 && pos.x > _view.getWidth() * 0.5f - 117 * 3 && dir == -1)
                 {
-                    pos.x += leftoffset.x;
-                    pos.y += leftoffset.y;
+                    land = Land.Create();
+                    pos.x += xOffset * dir;
+                    pos.y += yOffset;
                     land.SetPos(new Vector3(pos));
                     MapList.add(land);
                 }
-                else if (random.nextInt(Math.abs((int)SystemClock.elapsedRealtime())) % 2 == 1 && pos.x < _view.getWidth() * 0.5f + 117 * 3)
+                else if (random.nextInt() % 2 == 1 && pos.x < _view.getWidth() * 0.5f + 117 * 3 && dir == 1)
                 {
-                    pos.x += rightoffset.x;
-                    pos.y += rightoffset.y;
+                    land = Land.Create();
+                    pos.x += xOffset * dir;
+                    pos.y += yOffset;
                     land.SetPos(new Vector3(pos));
                     MapList.add(land);
                 }
-            }
+
+            } while (MapList.getLast().GetPos().y < view.getHeight() * 2);
+
             isInit = true;
         }
     }
 
     public void Update(float _dt) {
+        landNumber = 0;
+        LinkedList<Land> removalList = new LinkedList<>();
+
         for (Land land : MapList) {
+            if (land.GetPos().y < -land.GetBmp().getHeight() * 0.5f) {
+                removalList.add(land);
+                continue;
+            }
+
+            landNumber++;
             land.Update(_dt);
         }
-    }
 
-    public void Add() {
-
-    }
-
-    public void Remove() {
-
-    }
-
-    public void Render(Canvas _canvas)
-    {
-        for (Land land : MapList)
-        {
-            land.Render(_canvas);
+        for (Land land : removalList) {
+            MapList.remove(land);
         }
+
+        if (MapList.size() < 60)
+        {
+            if (random.nextInt() % 7 == 0)
+                dir *= -1;
+
+            if (random.nextInt() % 2 == 0 && pos.x > view.getWidth() * 0.5f - 117 * 3 && dir == -1)
+            {
+                land = Land.Create();
+                pos.x = MapList.getLast().GetPos().x + xOffset * dir;
+                pos.y = MapList.getLast().GetPos().y + yOffset;
+                land.SetPos(new Vector3(pos));
+                MapList.add(land);
+            }
+            else if (random.nextInt() % 2 == 1 && pos.x < view.getWidth() * 0.5f + 117 * 3 && dir == 1)
+            {
+                land = Land.Create();
+                pos.x = MapList.getLast().GetPos().x + xOffset * dir;
+                pos.y = MapList.getLast().GetPos().y + yOffset;
+                land.SetPos(new Vector3(pos));
+                MapList.add(land);
+            }
+        }
+
+        Log.v("Number of land", Integer.toString(landNumber));
     }
 
     public boolean IsInit() {

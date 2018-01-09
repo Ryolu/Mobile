@@ -125,7 +125,8 @@ public class Player implements EntityBase, Collidable {
 
         UpdateJump(_dt);
 
-        Character.Update(_dt);
+        if (GameData.Instance.isStarted)
+            Character.Update(_dt);
     }
 
     @Override

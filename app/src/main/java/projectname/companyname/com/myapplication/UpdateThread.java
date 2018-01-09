@@ -12,8 +12,7 @@ public class UpdateThread extends Thread
     private SurfaceHolder holder = null;
     private boolean isRunning = false;
 
-    public UpdateThread(GameView _view)
-    {
+    public UpdateThread(GameView _view){
         view = _view;
         holder = _view.getHolder();
 

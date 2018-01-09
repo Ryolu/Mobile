@@ -19,8 +19,7 @@ public class GameSystem
     {
     }
 
-    public void Init(SurfaceView _view)
-    {
+    public void Init(SurfaceView _view){
         view = _view;
         m_vibrator = (Vibrator)_view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
         ResourceManager.Instance.Init(_view);
@@ -31,21 +30,25 @@ public class GameSystem
         TextEntity.Create();
     }
 
-    public void Update(float _deltaTime)
-    {
+    public void Update(float _deltaTime){
         EntityManager.Instance.Update(_deltaTime);
-        if (MapGenerator.Instance.IsInit() == false)
+        if (!MapGenerator.Instance.IsInit())
         {
             MapGenerator.Instance.Init(view);
             return;
         }
         MapGenerator.Instance.Update(_deltaTime);
+
+        if (!GameData.Instance.isStarted && TouchManager.Instance.IsDown())
+        {
+            GameData.Instance.isStarted = true;
+            startVibrate();
+        }
     }
 
     public void Render(Canvas _canvas)
     {
         EntityManager.Instance.Render(_canvas);
-        MapGenerator.Instance.Render(_canvas);
     }
 
     public void startVibrate() {

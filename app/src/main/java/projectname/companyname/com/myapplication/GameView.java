@@ -15,7 +15,7 @@ class GameView extends SurfaceView {
 
     private UpdateThread updateThread = new UpdateThread(this);
 
-    public GameView(Context context) {
+    public GameView(Context context){
         super(context);
         holder = getHolder();
 

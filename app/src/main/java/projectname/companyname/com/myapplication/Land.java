@@ -37,6 +37,8 @@ public class Land implements EntityBase{
         return isFront;
     }
 
+    public Bitmap GetBmp() {return bmp;}
+
     @Override
     public boolean IsDone() {
         return isDone;
@@ -55,7 +57,8 @@ public class Land implements EntityBase{
 
     public void Update(float _dt)
     {
-        //pos.y -= 5f;
+        if (GameData.Instance.isStarted)
+            pos.y -= 5f;
         if (pos.z != renderLayer)
             pos.z = renderLayer;
     }
@@ -88,3 +91,4 @@ public class Land implements EntityBase{
         return isInit;
     }
 }
+
