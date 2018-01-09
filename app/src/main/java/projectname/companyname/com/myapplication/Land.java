@@ -15,7 +15,7 @@ public class Land implements EntityBase{
     private SurfaceView view = null;
 
     Land() {
-        bmp = ResourceManager.Instance.GetBitmap(R.drawable.gametile);
+        bmp = ResourceManager.Instance.GetBitmap(R.drawable.grass_tile);
     }
 
     public void SetPos(Vector3 _pos)
@@ -67,7 +67,7 @@ public class Land implements EntityBase{
     public void Render(Canvas _canvas) {
         Matrix transform = new Matrix();
         transform.postTranslate(-bmp.getWidth() * 0.5f, -bmp.getHeight() * 0.5f);
-        transform.postScale(0.2f, 0.2f);
+        transform.postScale(1.75f, 1.75f);
         transform.postTranslate(pos.x, pos.y);
 
         _canvas.drawBitmap(bmp, transform, null);

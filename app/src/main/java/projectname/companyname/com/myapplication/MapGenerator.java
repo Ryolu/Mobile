@@ -66,6 +66,7 @@ public class MapGenerator {
         LinkedList<Land> removalList = new LinkedList<>();
 
         for (Land land : MapList) {
+
             if (land.GetPos().y < -land.GetBmp().getHeight() * 0.5f) {
                 removalList.add(land);
                 continue;

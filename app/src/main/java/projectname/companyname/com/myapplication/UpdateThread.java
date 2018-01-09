@@ -58,6 +58,7 @@ public class UpdateThread extends Thread
             prevTime = currTime;
             //end deltatime
 
+            // TODO: Change this to statemanager when states are created
             GameSystem.Instance.Update(deltaTime);
 
             // Render
@@ -68,6 +69,8 @@ public class UpdateThread extends Thread
                 {
                     // start doing stuff here
                     canvas.drawColor(Color.BLACK);
+
+                    // TODO: Change this to statemanager when states are created
                     GameSystem.Instance.Render(canvas);
                 }
                 holder.unlockCanvasAndPost(canvas);

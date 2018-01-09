@@ -2,6 +2,7 @@ package projectname.companyname.com.myapplication;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 
 public class Sprite {
@@ -43,17 +44,17 @@ public class Sprite {
         }
     }
 
-    public void Render(Canvas _canvas, int _x, int _y) {
+    public void Render(Canvas _canvas, int _x, int _y, int _scale) {
         int frameX = currentFrame % col;
         int frameY = currentFrame / col;
         int srcX = frameX * width;
         int srcY = frameY * height;
 
-        _x -= 0.5f * width;
-        _y -= 0.5f * height;
+        _x -= 0.5f * width * _scale;
+        _y -= 0.5f * height * _scale;
 
         Rect src = new Rect(srcX, srcY, srcX + width, srcY + height);
-        Rect dst = new Rect(_x, _y, _x + width, _y + height);
+        Rect dst = new Rect(_x, _y, _x + (width * _scale), _y + (height * _scale));
         _canvas.drawBitmap(bmp, src, dst, null);
     }
 

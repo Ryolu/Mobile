@@ -83,9 +83,9 @@ public class Player implements EntityBase, Collidable {
 
     @Override
     public void Init(SurfaceView _view) {
-        bmp = ResourceManager.Instance.GetBitmap(R.drawable.character_right);
-        Character = new Sprite(bmp, 1, 7, 7);
-        Character.SetAnimationFrames(0, 6);
+        bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_left);
+        Character = new Sprite(bmp, 1, 5, 5);
+        Character.SetAnimationFrames(0, 4);
 
         //xPos = Resources.getSystem().getDisplayMetrics().widthPixels * 0.5f;
         //yPos = Resources.getSystem().getDisplayMetrics().heightPixels * 0.5f;
@@ -133,11 +133,11 @@ public class Player implements EntityBase, Collidable {
     public void Render(Canvas _canvas) {
         //Matrix transform = new Matrix();
         //transform.postTranslate(-bmp.getWidth() * 0.5f, -bmp.getHeight() * 0.5f);
-        //transform.postScale(0.25f, 0.25f);
-        //transform.postTranslate(xPos, yPos);
+        //transform.postScale(2, 2);
+        //transform.postTranslate(pos.x, pos.y);
         //_canvas.drawBitmap(bmp, transform, null);
 
-        Character.Render(_canvas, (int)pos.x, (int)pos.y);
+        Character.Render(_canvas, (int)pos.x, (int)pos.y, 2);
     }
 
     @Override
