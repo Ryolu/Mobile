@@ -73,3 +73,4 @@ public class Sprite {
         return width;
     }
 }
+
