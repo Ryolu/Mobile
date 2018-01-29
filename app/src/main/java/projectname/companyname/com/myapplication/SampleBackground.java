@@ -77,6 +77,11 @@ public class SampleBackground implements EntityBase
     }
 
     @Override
+    public Vector3 GetPos() {
+        return null;
+    }
+
+    @Override
     public boolean IsInit() {
         return isInit;
     }

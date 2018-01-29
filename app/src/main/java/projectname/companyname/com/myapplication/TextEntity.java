@@ -66,6 +66,11 @@ public class TextEntity implements EntityBase{
     public void SetRenderLayer(int _renderLayer) {}
 
     @Override
+    public Vector3 GetPos() {
+        return null;
+    }
+
+    @Override
     public boolean IsInit() {
         return true;
     }

@@ -6,12 +6,12 @@ import android.view.SurfaceView;
 
 import java.util.HashMap;
 
-public class AudioManager
-{
+public class AudioManager {
     public final static AudioManager Instance = new AudioManager();
 
     private Resources res = null;
     private SurfaceView view = null;
+    private boolean isInit = false;
     private HashMap<Integer, MediaPlayer> audioMap = new HashMap<Integer, MediaPlayer>();
 
     private AudioManager()
@@ -23,6 +23,14 @@ public class AudioManager
     {
         view = _view;
         res = _view.getResources();
+
+        if (_view != null)
+            isInit = true;
+    }
+
+    public boolean IsInit()
+    {
+        return isInit;
     }
 
     public void PlayAudio(int _id)

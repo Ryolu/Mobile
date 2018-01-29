@@ -1,14 +1,11 @@
 package projectname.companyname.com.myapplication;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.view.SurfaceView;
 
-import java.util.Random;
-
-public class Obstacle implements EntityBase, Collidable {
+public class Coin implements Collidable, EntityBase {
 
     private Bitmap bmp = null;
     private boolean isDone = false;
@@ -20,7 +17,7 @@ public class Obstacle implements EntityBase, Collidable {
 
     @Override
     public String GetType() {
-        return "Obstacle";
+        return "Coin";
     }
 
     @Override
@@ -35,16 +32,22 @@ public class Obstacle implements EntityBase, Collidable {
 
     @Override
     public float GetRadius() {
-        return 0;
+        return (float)(bmp.getHeight() * 0.5);
     }
 
     @Override
     public void OnHit(Collidable _other) {
+        if (_other.GetType() == "Player")
+        {
+            GameData.Instance.coin++;
+            SetIsDone(true);
+        }
+
     }
 
     @Override
     public boolean IsDone() {
-        return false;
+        return isDone;
     }
 
     @Override
@@ -58,7 +61,7 @@ public class Obstacle implements EntityBase, Collidable {
         {
             isInit = true;
             view = _view;
-            bmp = ResourceManager.Instance.GetBitmap(R.drawable.dustbin);
+            bmp = ResourceManager.Instance.GetBitmap(R.drawable.pepsi_can);
             SetRenderLayer(RenderLayer.Instance.GroundLayerFront);
         }
     }
@@ -88,7 +91,7 @@ public class Obstacle implements EntityBase, Collidable {
 
     @Override
     public void SetRenderLayer(int _renderLayer) {
-
+        renderLayer = _renderLayer;
     }
 
     @Override
@@ -98,7 +101,6 @@ public class Obstacle implements EntityBase, Collidable {
 
     @Override
     public boolean IsInit() {
-        return view != null && bmp != null;
+        return isInit;
     }
 }
-

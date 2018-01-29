@@ -54,7 +54,7 @@ public class SampleEntity implements EntityBase, Collidable {
         {
             // check collision here
             float imgRadius = bmp.getHeight() * 0.5f;
-            if (Collision.SphereToSPhere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius))
+            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius))
             {
                 SetIsDone(true);
             }
@@ -74,6 +74,11 @@ public class SampleEntity implements EntityBase, Collidable {
     @Override
     public void SetRenderLayer(int _renderLayer) {
 
+    }
+
+    @Override
+    public Vector3 GetPos() {
+        return null;
     }
 
     public static SampleEntity Create() {

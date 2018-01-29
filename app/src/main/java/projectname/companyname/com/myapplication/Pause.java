@@ -8,7 +8,7 @@ import android.view.SurfaceView;
 public class Pause implements EntityBase{
     private boolean isDone = false;
     private Bitmap bmp = null;
-    private int xPos, yPos;
+    private Vector3 pos = new Vector3();
     private boolean isInit = false;
     private int renderLayer = 0;
 
@@ -25,8 +25,7 @@ public class Pause implements EntityBase{
     @Override
     public void Init(SurfaceView _view) {
         bmp = ResourceManager.Instance.GetBitmap(R.mipmap.ic_launcher_round);
-        xPos = 100;
-        yPos = 100;
+        pos.Set(100, 100, 0);
         isInit = true;
     }
 
@@ -47,7 +46,7 @@ public class Pause implements EntityBase{
 
     @Override
     public void Render(Canvas _canvas) {
-        _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null);
+        _canvas.drawBitmap(bmp, pos.x - bmp.getWidth() * 0.5f, pos.y - bmp.getHeight() * 0.5f, null);
     }
 
     @Override
@@ -63,6 +62,11 @@ public class Pause implements EntityBase{
     @Override
     public void SetRenderLayer(int _newLayer) {
         renderLayer = _newLayer;
+    }
+
+    @Override
+    public Vector3 GetPos() {
+        return pos;
     }
 
     public static Pause Create(int _layer)

@@ -32,9 +32,6 @@ public class Player implements EntityBase, Collidable {
     private float gravity = 1000;
     private float renderLayer = RenderLayer.Instance.PlayerLayer;
 
-
-    //private float xPos, yPos, xDir, yDir;
-
     Sprite Character;
 
     @Override
@@ -98,21 +95,27 @@ public class Player implements EntityBase, Collidable {
 
     @Override
     public void Update(float _dt) {
-       //pos.x += dir.x * _dt;
+       pos.x += dir.x;
 
         if (TouchManager.Instance.IsUp()) {
             switch (TouchManager.Instance.IsSwipe())
             {
                 case 0:
-                    dir.x = -350f;
+                    dir.x = -10f;
                     Log.d("Player", "left");
                     TouchManager.Instance.ResetState();
+                    bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_left);
+                    Character = new Sprite(bmp, 1, 5, 5);
+                    Character.SetAnimationFrames(0, 4);
                     break;
 
                 case 1:
-                    dir.x = 350f;
+                    dir.x = 10f;
                     Log.d("Player", "right");
                     TouchManager.Instance.ResetState();
+                    bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_right);
+                    Character = new Sprite(bmp, 1, 5, 5);
+                    Character.SetAnimationFrames(0, 4);
                     break;
 
                 case 2:

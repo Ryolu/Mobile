@@ -13,6 +13,7 @@ public interface EntityBase {
 
     int GetRenderLayer();
     void SetRenderLayer(int _renderLayer);
+    Vector3 GetPos();
 
     boolean IsInit();
 }
