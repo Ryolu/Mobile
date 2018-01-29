@@ -101,7 +101,7 @@ public class Player implements EntityBase, Collidable {
             switch (TouchManager.Instance.IsSwipe())
             {
                 case 0:
-                    dir.x = -10f;
+                    dir.x = -19.9f;
                     Log.d("Player", "left");
                     TouchManager.Instance.ResetState();
                     bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_left);
@@ -110,7 +110,7 @@ public class Player implements EntityBase, Collidable {
                     break;
 
                 case 1:
-                    dir.x = 10f;
+                    dir.x = 19.9f;
                     Log.d("Player", "right");
                     TouchManager.Instance.ResetState();
                     bmp = ResourceManager.Instance.GetBitmap(R.drawable.player_right);

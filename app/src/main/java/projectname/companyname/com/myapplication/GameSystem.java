@@ -39,7 +39,7 @@ public class GameSystem
         }
         MapGenerator.Instance.Update(_deltaTime);
 
-        if (!GameData.Instance.isStarted && TouchManager.Instance.IsUp())
+        if (!GameData.Instance.isStarted && TouchManager.Instance.IsDown())
         {
             GameData.Instance.isStarted = true;
             startVibrate();
